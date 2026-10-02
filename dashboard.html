@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - V3EStore</title>
+    <link rel="stylesheet" href="registro.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }  
+        
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .dashboard-card:hover::before {
+            opacity: 1;
+        }
+        
+        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .dashboard-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.2);
+        }
+        
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        .dashboard-card:hover .card-icon {
+            animation: rotateIcon 0.6s ease-out;
+        }
+        
+        .card-title {
+            color: rgba(139, 69, 19, 0.9);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .card-value {
+            color: rgba(160, 82, 45, 0.8);
+            font-size: 1.8em;
+            font-weight: 300;
+            animation: countUp 0.8s ease-out;
+        }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: slideInDown 0.6s ease-out;
+        }
+        
+        .user-welcome h1 {
+            color: rgba(139, 69, 19, 0.9);
+            margin-bottom: 5px;
+        }
+        
+        .user-welcome p {
+            color: rgba(160, 82, 45, 0.7);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: rgba(139, 69, 19, 0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .nav-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .recent-activity {
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+        
+        .activity-list {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInLeft 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .activity-item:nth-child(1) { animation-delay: 0.6s; }
+        .activity-item:nth-child(2) { animation-delay: 0.7s; }
+        .activity-item:nth-child(3) { animation-delay: 0.8s; }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .activity-item:nth-child(1) .activity-icon { animation-delay: 0s; }
+        .activity-item:nth-child(2) .activity-icon { animation-delay: 0.2s; }
+        .activity-item:nth-child(3) .activity-icon { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes rotateIcon {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+            to {
+                transform: rotate(360deg) scale(1.1);
+            }
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <div class="nav-header">
+            <div class="user-welcome">
+                <h1>¡Bienvenido, <span id="userName">Usuario</span>! 👋</h1>
+                <p>Es un buen día para explorar nuevas oportunidades</p>
+            </div>
+            <div class="nav-buttons">
+                <a href="perfil.html" class="nav-btn">👤 Mi Perfil</a>
+                <a href="registro.html" class="nav-btn">🚪 Cerrar Sesión</a>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Estadísticas</div>
+                <div class="card-value">15</div>
+                <small>Actividades hoy</small>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-icon">⭐</div>
+                <div class="card-title">Puntos</div>
+                <div class="card-value">1,250</div>
+                <small>Puntos acumulados</small>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Metas</div>
+                <div class="card-value">3/5</div>
+                <small>Completadas</small>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-icon">📈</div>
+                <div class="card-title">Progreso</div>
+                <div class="card-value">75%</div>
+                <small>Del total</small>
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <h2 style="color: rgba(139, 69, 19, 0.9); margin-bottom: 20px;">📋 Actividad Reciente</h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">✅</div>
+                    <div>
+                        <strong>Registro completado</strong>
+                        <p style="color: rgba(160, 82, 45, 0.7); margin: 5px 0 0 0; font-size: 0.9em;">
+                            Tu cuenta fue creada exitosamente
+                        </p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">🔔</div>
+                    <div>
+                        <strong>Bienvenida al sistema</strong>
+                        <p style="color: rgba(160, 82, 45, 0.7); margin: 5px 0 0 0; font-size: 0.9em;">
+                            Te damos la bienvenida a V3EStore
+                        </p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">⚙️</div>
+                    <div>
+                        <strong>Perfil configurado</strong>
+                        <p style="color: rgba(160, 82, 45, 0.7); margin: 5px 0 0 0; font-size: 0.9em;">
+                            Información básica establecida
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            document.getElementById('userName').textContent = userName;
+        });
+    </script>
+</body>
+</html>

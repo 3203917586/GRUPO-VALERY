@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Contacto - V3E STORE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, rgba(144, 238, 144, 0.15) 0%, rgba(152, 251, 152, 0.12) 50%, rgba(173, 255, 47, 0.08) 100%);
+      font-family: 'Georgia', 'Garamond', serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+    }
+
+    header .logo {
+      font-size: 1.4em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #2A8F4F;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin-top: 60px;
+    }
+
+    .whatsapp-box {
+      background: linear-gradient(135deg, rgba(255, 192, 203, 0.75) 0%, rgba(255, 182, 193, 0.7) 100%);
+      border-radius: 20px;
+      padding: 36px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      border: 2px solid rgba(255, 182, 193, 0.5);
+      animation: slideInBox 0.6s ease-out;
+      position: relative;
+    }
+
+    .whatsapp-box h2 {
+      color: #2A8F4F;
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+      font-family: 'Georgia', serif;
+    }
+
+    .whatsapp-box p {
+      color: #3d3d3d;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      font-family: 'Georgia', serif;
+    }
+
+    .whatsapp-icon {
+      font-size: 3.2em;
+      margin-bottom: 14px;
+      animation: bounce-icon 1s ease-in-out infinite;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #2A8F4F 0%, #1a5a34 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1.05rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(42, 143, 79, 0.35);
+      font-family: 'Georgia', serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(42, 143, 79, 0.45);
+      background: linear-gradient(135deg, #1a5a34 0%, #0d3d22 100%);
+    }
+
+    .back-link {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(42, 143, 79, 0.9);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.28s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .back-link:hover {
+      background: rgba(26, 90, 52, 0.95);
+      transform: translateY(-2px);
+    }
+
+    @keyframes slideInBox {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce-icon {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .whatsapp-box {
+        padding: 22px;
+        max-width: 100%;
+      }
+
+      .whatsapp-box h2 {
+        font-size: 1.4rem;
+      }
+
+      .whatsapp-box p {
+        font-size: 0.98rem;
+      }
+
+      .whatsapp-icon {
+        font-size: 2.6em;
+      }
+
+      header .logo {
+        font-size: 1.2em;
+      }
+
+      .back-link {
+        bottom: 16px;
+        left: 16px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">V3E STORE</div>
+  </header>
+
+  <div class="container">
+    <div class="whatsapp-box">
+      <div class="whatsapp-icon">💬</div>
+      <h2>¡Hablemos por WhatsApp!</h2>
+      <p>Acá atenderemos tus dudas con nuestra sección de WhatsApp donde te atenderemos en con una asesoria prontamente!</p>
+      <a href="https://wa.me/3028360009" target="_blank" class="cta-button">📲 ¡Contactar ahora!</a>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">← Volver</a>
+</body>
+</html>

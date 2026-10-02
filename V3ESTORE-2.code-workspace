@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "carrito"
+		},
+		{
+			"path": "css"
+		},
+		{
+			"path": "img"
+		},
+		{
+			"path": "js"
+		},
+		{
+			"path": "public"
+		}
+	],
+	"settings": {
+		"liveshare.allowGuestDebugControl": true,
+		"liveshare.allowGuestTaskControl": true,
+		"liveshare.diagnosticLogging": true,
+		"liveshare.diagnosticMode": true,
+		"liveshare.guestApprovalRequired": true,
+		"liveServer.settings.multiRootWorkspaceName": "V3ESTORE"
+	}
+}

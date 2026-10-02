@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V3E STORE | Belleza y Estilo</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* Estilos críticos para asegurar el F-Shape y el Carrusel */
+    .hero-f-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 10%;
+      background: var(--color-beige-light);
+      min-height: 70vh;
+      gap: 40px;
+    }
+    .hero-content { flex: 1; text-align: left; }
+    .hero-image-f { flex: 1; text-align: right; }
+    .hero-image-f img { max-width: 100%; border-radius: 20px; box-shadow: 15px 15px 0px var(--color-pink-dark); }
+
+    .quick-categories {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      padding: 60px 20px;
+      background: #fff;
+    }
+    .cat-item { text-align: center; cursor: pointer; transition: 0.3s; }
+    .cat-item .circle {
+      width: 110px; height: 110px; border-radius: 50%;
+      border: 3px solid var(--color-pink-dark); overflow: hidden; margin-bottom: 12px;
+    }
+    .cat-item img { width: 100%; height: 100%; object-fit: cover; }
+    .cat-item:hover { transform: scale(1.1); }
+
+    #destacadosTrack {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      gap: 20px;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
+    .product-card {
+      flex: 0 0 280px !important;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .product-card img { width: 100%; height: 220px; object-fit: cover; }
+    
+    @media (max-width: 768px) {
+      .hero-f-layout { flex-direction: column; text-align: center; padding: 40px 5%; }
+      .hero-content { text-align: center; }
+      .quick-categories { gap: 15px; flex-wrap: wrap; }
+      .cat-item .circle { width: 80px; height: 80px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="animate__animated animate__fadeInDown">
+    <h2 class="logo">V3E STORE</h2>
+    <nav>
+      <a href="index.html" class="categoria-alt">Inicio</a>
+      <a href="productos.html" class="categoria-btn">Productos</a>
+      <a href="maquillaje.html" class="categoria-btn">Maquillaje</a>
+      <a href="skincare.html" class="categoria-btn">Skincare</a>
+      <a href="registro.html" class="categoria-alt">Registro</a>
+      <button id="logoutBtn" style="display:none;">Cerrar sesión</button>
+      <button id="cartBtn" class="cart-nav">🛒</button>
+    </nav>
+  </header>
+
+  <section class="hero-f-layout">
+    <!-- Elementos orgánicos flotantes de fondo -->
+    <div class="floating-blob blob-1"></div>
+    <div class="floating-blob blob-2"></div>
+    
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInLeft">
+        <span id="typed-text"></span>
+      </h1>
+      <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.3s; color: #555; font-size: 1.2rem;">
+        Maquillaje, skincare y moda pensados para resaltar tu brillo natural en cada momento.
+      </p>
+      <div style="margin-top:25px;" class="animate__animated animate__zoomIn" style="animation-delay: 0.8s;">
+        <button id="comprarAhoraBtn" class="cta-btn animate__animated animate__pulse animate__infinite">Comprar Ahora</button>
+      </div>
+    </div>
+    <div class="hero-image-f animate__animated animate__fadeInRight">
+      <div class="banner-glass animate__animated animate__fadeInUp" style="animation-delay: 1.2s;">
+        <img src="img/banner_maquillaje.png" alt="V3E Beauty Collection">
+      </div>
+      
+      <div class="hero-image-splash animate__animated animate__slideInRight" style="animation-delay: 1.6s; animation-duration: 1.2s;">
+        <img src="img/maquillaje-removebg-preview.png" alt="Splash Labial">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar / Barra de Confianza -->
+  <section class="trust-bar">
+    <div class="trust-item">
+      <i class="fas fa-truck"></i>
+      <div class="trust-content">
+        <strong>Envío Gratis</strong>
+        <span>A partir de $100.000 COP</span>
+      </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <i class="fas fa-lock"></i>
+      <div class="trust-content">
+        <strong>Pago Seguro</strong>
+        <span>Wompi • Mercado Pago</span>
+      </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <i class="fas fa-undo"></i>
+      <div class="trust-content">
+        <strong>Devoluciones Fáciles</strong>
+        <span>Hasta 30 días</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-categories reveal-on-scroll">
+    <div class="cat-item" onclick="window.location.href='maquillaje.html'">
+      <div class="circle"><img src="img/maquillaje_rubor_11.jfif" alt="Belleza"></div>
+      <strong>Maquillaje</strong>
+    </div>
+    <div class="cat-item" onclick="window.location.href='skincare.html'">
+      <div class="circle"><img src="img/product_1_skincare.jfif" alt="Cuidado"></div>
+      <strong>Skincare</strong>
+    </div>
+    <div class="cat-item" onclick="window.location.href='ropa.html'">
+      <div class="circle"><img src="img/camisa_overcize_peluche_19.jfif" alt="Moda"></div>
+      <strong>Moda</strong>
+    </div>
+  </section>
+
+  <section class="destacados-bar reveal-on-scroll">
+    <div class="container">
+      <h3 style="text-align: center; margin-bottom: 30px;">Tendencias V3E</h3>
+      <div id="destacadosTrack">
+        </div>
+    </div>
+  </section>
+
+  <section class="vinculacion-section reveal-on-scroll" style="background: #fff; padding: 60px 20px; text-align: center; margin: 40px 10%; border-radius: 20px; border: 2px dashed var(--color-pink-dark);">
+    <h2 style="color: var(--detail-wine); margin-bottom: 15px;">¿Deseas vincularte con V3E Store?</h2>
+    <p style="max-width: 600px; margin: 0 auto 20px; color: #666;">Únete a nuestra comunidad y descubre beneficios exclusivos para aliadas.</p>
+    <button class="cta-btn" style="opacity: 0.7; cursor: not-allowed;">Próximamente</button>
+  </section>
+
+  <section class="quienes-somos reveal-on-scroll">
+    <h2 class="quienes-somos-titulo">¿Quiénes Somos?</h2>
+    <div class="quienes-somos-content">
+      <div class="quienes-somos-column">
+        <p>V3E Store es una tienda online dedicada a ofrecer productos de calidad premium. Nacimos con la misión de acercar belleza y estilo a cada rincón de Colombia.</p>
+      </div>
+      <div class="quienes-somos-column">
+        <p>Creemos que la moda es una forma de expresión personal. Seleccionamos cuidadosamente cada artículo para garantizar tu satisfacción total.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 V3E STORE - Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Botones Flotantes de Contacto -->
+  <div class="floating-buttons">
+    <a href="https://www.instagram.com" target="_blank" class="float-btn instagram-btn" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="whatsappcontacto.html" class="float-btn whatsapp-btn" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Typed.js para el Hero
+      new Typed('#typed-text', {
+        strings: ['La moda que buscas', 'El estilo que mereces', 'Resalta tu belleza única'],
+        typeSpeed: 50, backSpeed: 30, backDelay: 2000, loop: true
+      });
+
+      // Reveal on Scroll con Animate.css
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+            entry.target.style.opacity = "1";
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+        el.style.opacity = "0";
+        observer.observe(el);
+      });
+
+      // Datos y Lógica del Carrusel
+      const products = [
+        {src:'img/camisa_overcize_peluche_19.jfif', title:'Camisa Peluche'},
+        {src:'img/maquillaje_rubor_11.jfif', title:'Rubor Iluminador'},
+        {src:'img/product_1_skincare.jfif', title:'Serum Hydrating'},
+        {src:'img/vestido_azul_elegante_13.jfif', title:'Vestido Gala'},
+        {src:'img/maquillaje_labial.jpg', title:'Labial Velvet'},
+        {src:'img/serum_vitamina_c.jpg', title:'Vitamina C Gloss'}
+      ];
+
+      const track = document.getElementById('destacadosTrack');
+      products.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.innerHTML = `<img src="${p.src}" alt="${p.title}"><div style="padding:15px; text-align:center;"><strong>${p.title}</strong></div>`;
+        track.appendChild(card);
+      });
+
+      // Movimiento infinito suave
+      let isHovered = false;
+      function step() {
+        if (!isHovered) {
+          track.scrollLeft += 1;
+          if (track.scrollLeft >= (track.scrollWidth - track.clientWidth)) {
+            track.scrollLeft = 0;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+      track.addEventListener('mouseenter', () => isHovered = true);
+      track.addEventListener('mouseleave', () => isHovered = false);
+      step();
+    });
+  </script>
+</body>
+</html>

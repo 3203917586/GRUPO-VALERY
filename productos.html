@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos | V3E STORE</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .productos-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #fffbe6cc;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(44,58,32,0.13);
+      padding: 36px 32px 28px 32px;
+    }
+    .productos-container h2 {
+      color: #4B5320;
+      margin-bottom: 18px;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+    }
+    .productos-lista {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .producto-item {
+      width: 220px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(44,58,32,0.10);
+      padding: 18px 12px 12px 12px;
+      text-align: center;
+      border: 2px solid #C8A2C8;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .producto-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #fac6cae3;
+    }
+    .producto-item h3 {
+      font-size: 1.1em;
+      color: #4B5320;
+      margin-bottom: 6px;
+    }
+    .producto-item .categoria {
+      font-size: 0.95em;
+      color: #C8A2C8;
+      margin-bottom: 4px;
+    }
+    .producto-item .precio {
+      font-size: 1.1em;
+      color: #9B70A8;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .producto-item .agregar {
+      background: #C8A2C8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: auto;
+      transition: background 0.2s;
+    }
+    .producto-item .agregar:hover {
+      background: #9B70A8;
+    }
+    @media (max-width: 700px) {
+      .productos-container {
+        padding: 10px 2vw;
+      }
+      .productos-lista {
+        gap: 12px;
+      }
+      .producto-item {
+        width: 140px;
+        padding: 10px 4px 8px 4px;
+      }
+      .producto-item img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">V3E STORE</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="ropa.html">Ropa</a>
+      <a href="maquillaje.html">Maquillaje</a>
+      <a href="skincare.hmtl">Skincare</a>
+      <a href="carrito/carrito.html">Carrito</a>
+      <a href="registro.html">Registro</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+  <div class="productos-container">
+    <h2>Todos los productos</h2>
+  <div id="productosLista" class="productos-lista"></div>
+  <div id="mensajeAgregado" style="display:none; text-align:center; color:#4B5320; font-weight:bold; margin-top:20px; font-size:1.1em;">Producto agregado al carrito 🛒</div>
+  <div id="debugCarrito" style="background:#fffbe6cc; color:#4B5320; padding:10px; border-radius:8px; margin:20px 0; font-size:0.95em; display:none;"></div>
+  </div>
+  <div id="cartWindow" style="position:fixed;bottom:30px;right:30px;z-index:1000;background:#fffbe6cc;border:2px solid #C8A2C8;border-radius:16px;box-shadow:0 4px 16px #C8A2C833;padding:18px 20px;min-width:260px;max-width:320px;display:none;">
+    <h3 style="color:#4B5320;margin-top:0;">Tu carrito 🛒</h3>
+    <ul id="cartList" style="list-style:none;padding:0;margin:0 0 10px 0;"></ul>
+    <button id="buyBtn" style="background:#C8A2C8;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;cursor:pointer;">Comprar</button>
+    <button id="closeCartBtn" style="background:#eee;color:#4B5320;border:none;border-radius:8px;padding:6px 12px;margin-left:8px;cursor:pointer;">Cerrar</button>
+  </div>
+  <div id="modalCompra" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0008;z-index:2000;align-items:center;justify-content:center;">
+    <div style="background:#fffbe6cc;padding:28px 24px;border-radius:18px;max-width:340px;width:90vw;box-shadow:0 4px 24px #C8A2C833;">
+      <h3 style="color:#4B5320;margin-top:0;">Datos para la compra</h3>
+      <form id="formCompra">
+        <input type="text" name="nombre" placeholder="Nombre" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:1px solid #C8A2C8;">
+        <input type="text" name="apellido" placeholder="Apellido" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:1px solid #C8A2C8;">
+        <input type="text" name="direccion" placeholder="Dirección" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:1px solid #C8A2C8;">
+        <input type="number" name="edad" placeholder="Edad" min="18" required style="width:100%;margin-bottom:10px;padding:8px;border-radius:6px;border:1px solid #C8A2C8;">
+        <select name="pago" required style="width:100%;margin-bottom:14px;padding:8px;border-radius:6px;border:1px solid #C8A2C8;">
+          <option value="">Forma de pago</option>
+          <option value="tarjeta">Tarjeta de crédito</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="nequi">Nequi</option>
+          <option value="efecty">Efecty</option>
+          <option value="banco">Banco</option>
+        </select>
+        <button type="submit" style="background:#C8A2C8;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;cursor:pointer;width:100%;">Confirmar compra</button>
+        <button type="button" id="closeModalBtn" style="background:#eee;color:#4B5320;border:none;border-radius:8px;padding:6px 12px;margin-top:8px;cursor:pointer;width:100%;">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 V3E STORE - Todos los derechos reservados</p>
+  </footer>
+  <script>
+    
+    // (p. ej. 150.000)
+    const fmt = new Intl.NumberFormat('es-CO');
+    
+    const productos = [
+      // Maquillaje (15) 
+      // precios xdxdxd (estan en COP)
+      {nombre:'Base Líquida Glow', categoria:'Maquillaje', precio:50000, img:'base_liquida_glow.jpg'},
+      {nombre:'Polvo Compacto Mate', categoria:'Maquillaje', precio:90000, img:'polvo_compacto.jpg'},
+      {nombre:'Rubor Rosado', categoria:'Maquillaje', precio:95000, img:'rubor_rosado.jpg'},
+      {nombre:'Paleta Sombras Nude', categoria:'Maquilllaje', precio:150000, img:'paleta_sombras_nude.jpg'},
+      {nombre:'Labial Nude', categoria:'Maquillaje', precio:85, img:'labial_nude.jpg'},
+      {nombre:'Corrector Líquido', categoria:'Maquillaje', precio:120000, img:'corrector_liquido.jpg'},
+      {nombre:'Iluminador Líquido', categoria:'Maquillaje', precio:14000, img:'iluminador_liquido.jpg'},
+      {nombre:'Bronzer Compacto', categoria:'Maquillaje', precio:13070, img:'bronzer_compacto.jpg'},
+      {nombre:'Gel de Cejas', categoria:'Maquillaje', precio:7500, img:'gel_cejas.jpg'},
+      {nombre:'Paleta Sombras Color', categoria:'Maquillaje', precio:34000, img:'paleta_color.jpg'},
+      {nombre:'Delineador en Lápiz', categoria:'Maquillaje', precio:6000, img:'delineador_lapiz.jpg'},
+      {nombre:'Gloss Transparente', categoria:'Maquillaje', precio:6500, img:'gloss_transparente.jpg'},
+      {nombre:'Delineador Líquido', categoria:'Maquillaje', precio:70000, img:'delineador_liquido.jpg'},
+      {nombre:'Máscara de Pestañas', categoria:'Maquillaje', precio:110000, img:'mascara_pestanas.jpg'},
+      {nombre:'Labial Rojo Intenso', categoria:'Maquillaje', precio:85000, img:'labial_rojo_intenso.jpg'},
+      // Skincare (6)
+      {nombre:'Limpiador Facial', categoria:'Skincare', precio:15000, img:'limpiador_facial.jpg'},
+      {nombre:'Tónico Hidratante', categoria:'Skincare', precio:13600, img:'tonico_hidratante.jpg'},
+      {nombre:'Serum Vitamina C', categoria:'Skincare', precio:2100, img:'serum_vitamina_c.jpg'},
+      {nombre:'Crema Hidratante', categoria:'Skincare', precio:17000, img:'crema_hidratante.jpg'},
+      {nombre:'Protector Solar', categoria:'Skincare', precio:16000, img:'protector_solar.jpg'},
+      {nombre:'Mascarilla Facial', categoria:'Skincare', precio:90000, img:'mascarilla_facial.jpg'},
+
+      // Ropa (8)
+      {nombre:'Blusa Vintage', categoria:'Ropa', precio:80000, img:'blusa_vintage.jpg'},
+      {nombre:'Pantalón Mom Fit', categoria:'Ropa', precio:42000, img:'pantalon_momfit.jpg'},
+      {nombre:'Falda Pastel', categoria:'Ropa', precio:28000, img:'falda_pastel.jpg'},
+      {nombre:'Vestido Floral', categoria:'Ropa', precio:39000, img:'vestido_floral.jpg'},
+      {nombre:'Chaqueta Oversize', categoria:'Ropa', precio:52000, img:'chaqueta_oversize.jpg'},
+      {nombre:'Top Lila', categoria:'Ropa', precio:15850, img:'top_lila.jpg'},
+      {nombre:'Short Beige', categoria:'Ropa', precio:18000, img:'short_beige.jpg'},
+      {nombre:'Suéter Marrón', categoria:'Ropa', precio:26000, img:'sueter_marron.jpg'}
+      
+    ];
+    
+
+
+
+
+
+
+    const contenedor = document.getElementById('productosLista');
+    productos.forEach((prod, i) => {
+      const div = document.createElement('div');
+      div.className = 'producto-item';
+      div.innerHTML = `
+        <img src="img/${prod.img}" alt="${prod.nombre}">
+        <h3>${prod.nombre}</h3>
+        <div class="categoria">${prod.categoria}</div>
+        <div class="precio">$${prod.precio} COP</div>
+        <button class="agregar" onclick="agregarCarrito(${i})">Agregar al carrito</button>
+      `;
+      contenedor.appendChild(div);
+    });
+    
+    let carrito = [];
+    function agregarCarrito(idx) {
+      const prod = productos[idx];
+      carrito.push(prod);
+      mostrarCarritoVentana();
+    }
+    function mostrarCarritoVentana() {
+      const cartWindow = document.getElementById('cartWindow');
+      const cartList = document.getElementById('cartList');
+      cartList.innerHTML = '';
+      if (carrito.length === 0) {
+        cartWindow.style.display = 'none';
+        return;
+      }
+      cartWindow.style.display = 'block';
+      carrito.forEach((prod, i) => {
+        const li = document.createElement('li');
+        li.textContent = prod.nombre + ' - $' + prod.precio + ' COP';
+        const btn = document.createElement('button');
+        btn.textContent = 'Eliminar';
+        btn.style = 'background:#eee;color:#4B5320;border:none;border-radius:6px;padding:4px 10px;margin-left:8px;cursor:pointer;font-size:0.9em;';
+        btn.onclick = () => {
+          carrito.splice(i, 1);
+          mostrarCarritoVentana();
+        };
+        li.appendChild(btn);
+        cartList.appendChild(li);
+      });
+    }
+    document.getElementById('buyBtn').onclick = function() {
+      document.getElementById('modalCompra').style.display = 'flex';
+    };
+    document.getElementById('closeCartBtn').onclick = function() {
+      document.getElementById('cartWindow').style.display = 'none';
+    };
+    document.getElementById('closeModalBtn').onclick = function() {
+      document.getElementById('modalCompra').style.display = 'none';
+    };
+    document.getElementById('formCompra').onsubmit = function(e) {
+      e.preventDefault();
+      const datos = Object.fromEntries(new FormData(this));
+      if (parseInt(datos.edad) < 18) {
+        alert('Debes ser mayor de 18 años para comprar.');
+        return;
+      }
+      alert('¡Compra confirmada!\nGracias, ' + datos.nombre + '.\nForma de pago: ' + datos.pago + '\nProductos: ' + carrito.map(p=>p.nombre + ' ($' + p.precio + ' COP)').join(', '));
+      carrito = [];
+      mostrarCarritoVentana();
+      document.getElementById('modalCompra').style.display = 'none';
+      this.reset();
+    };
+    
+    function mostrarDebugCarrito() {
+      const debugDiv = document.getElementById('debugCarrito');
+      const carrito = JSON.parse(localStorage.getItem('carritoV3E')) || [];
+      debugDiv.style.display = 'block';
+      debugDiv.textContent = 'Carrito actual: ' + JSON.stringify(carrito, null, 2);
+
+    
+    }
+    mostrarDebugCarrito();
+  </script>
+
+</body>
+</html>

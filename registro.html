@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V3EStore</title>
+    <link rel="stylesheet" href="registro.css">
+    <style>
+  
+    .submit-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+    .glass-container.small {
+        width: 92%;
+        max-width: 540px; 
+        padding: 12px 16px; 
+        margin: 18px auto;
+        border-radius: 14px;
+    }
+
+    .form-group { margin-bottom: 10px; }
+    label { font-size: 0.92rem; }
+    input { padding: 10px 12px; font-size: 0.98rem; }
+
+   
+    .submit-btn { padding: 10px 12px; border-radius: 10px; font-weight:700; }
+    .submit-btn.enabled { background: linear-gradient(90deg,#ffa3d1 0%, #d16099 100%); color:#fff; box-shadow:0 12px 30px rgba(216,27,120,0.14); }
+
+    @keyframes btn-jump { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
+    .submit-btn:hover { animation: btn-jump 0.34s ease forwards; }
+    .submit-btn:active { transform: translateY(-2px) scale(0.998); }
+    </style>
+</head>
+<body>
+    <div class="glass-container small">
+        <div class="header">
+            <h1>Crear Cuenta</h1>
+            <p>V3E Store, la mejor decision para tus compras</p>
+            <p>¡Gracias por elegirnos!</p>
+        </div>
+        
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
+            </div>
+
+            <div class="form-group">
+                <label for="documento">Número de documento:</label>
+                <input type="text" id="documento" name="documento" required placeholder="Ej: 12345678A">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="usuario">Nombre de usuario:</label>
+                <input type="text" id="usuario" name="usuario" required placeholder="Elige un nombre único">
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required placeholder="Mínimo 6 caracteres">
+            </div>
+
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" id="crearCuentaBtn" class="submit-btn disabled" disabled>Crear Cuenta</button>
+            </div>
+        </form>
+
+        <div id="mensaje"></div>
+        <div id="ventanaRegistro" style="display:none; position:fixed; top:40px; left:50%; transform:translateX(-50%); background:#fffbe6cc; border:2px solid #C8A2C8; border-radius:12px; box-shadow:0 6px 20px rgba(200,162,200,0.2); padding:16px 20px; min-width:240px; max-width:320px; z-index:2000; color:#5A4A52; font-size:1rem; text-align:center;">
+            Si quieres continuar con V3E Store, regístrate para mejor experiencia.
+            <br><br>
+            <button id="cerrarVentanaBtn" class="submit-btn" style="background:linear-gradient(90deg,#FAD1E3 0%, #F5A6C6 100%); color:#5A4A52; padding:8px 16px; border-radius:8px;">Cerrar</button>
+        </div>
+    </div>
+    <script src="registro.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ventana = document.getElementById('ventanaRegistro');
+        if (ventana) ventana.style.display = 'block';
+
+        var form = document.getElementById('registroForm');
+        var crearCuentaBtn = document.getElementById('crearCuentaBtn');
+        var cerrarBtn = document.getElementById('cerrarVentanaBtn');
+        var inputs = form ? Array.from(form.querySelectorAll('input[required]')) : [];
+
+        function formIsValid() {
+            for (var i = 0; i < inputs.length; i++) {
+                var el = inputs[i];
+                if (!el.value || el.value.trim() === '') return false;
+                if (el.type === 'password' && el.value.length < 6) return false;
+            }
+            return true;
+        }
+
+        function setButtonState(enabled) {
+            if (crearCuentaBtn) {
+                crearCuentaBtn.disabled = !enabled;
+                if (enabled) { crearCuentaBtn.classList.remove('disabled'); crearCuentaBtn.classList.add('enabled'); }
+                else { crearCuentaBtn.classList.remove('enabled'); crearCuentaBtn.classList.add('disabled'); }
+            }
+           
+        }
+
+        function updateState() { setButtonState(formIsValid()); }
+
+      
+        updateState();
+        inputs.forEach(function(inp){ inp.addEventListener('input', updateState); });
+
+    
+        
+
+     
+      
+
+        if (cerrarBtn) cerrarBtn.addEventListener('click', function(){ ventana.style.display = 'none'; });
+    });
+    </script>
+</body>
+</html>

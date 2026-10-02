@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto para Asesoría</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #C78C62 0%, #F8C8DC 100%);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .contact-container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #fff8f3;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(156, 78, 39, 0.15);
+            padding: 32px 28px 24px 28px;
+            border: 3px solid #C0834F;
+            position: relative;
+        }
+        .contact-container:before {
+            content: "";
+            position: absolute;
+            top: -30px; left: 30px;
+            width: 60px; height: 60px;
+            background: #F8C8DC;
+            border-radius: 50%;
+            z-index: 0;
+            box-shadow: 0 0 0 8px #C78C6233;
+        }
+        .contact-title {
+            color: #9C4E27;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .contact-desc {
+            color: #4D4A29;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        label {
+            color: #6A7537;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        input, textarea {
+            border: 2px solid #C0834F;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        input:focus, textarea:focus {
+            border-color: #9C4E27;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(90deg, #9C4E27 60%, #C78C62 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #9C4E2733;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #C0834F 60%, #9C4E27 100%);
+        }
+        .cute-decoration {
+            position: absolute;
+            right: -18px;
+            bottom: -18px;
+            width: 60px;
+            height: 60px;
+            background: #F8C8DC;
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px #C78C6233;
+            z-index: 0;
+        }
+        .gmail-icon {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 48px;
+            height: 48px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <svg class="gmail-icon" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#F8C8DC"/><path d="M8 14v20a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V14a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2zm4 0l12 9 12-9" fill="none" stroke="#9C4E27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="contact-title">Contáctanos para Asesoría</div>
+        <div class="contact-desc">¿Tienes dudas o necesitas asesoría personalizada? ¡Déjanos tu correo de Gmail y tu mensaje!<br>Te responderemos lo antes posible.</div>
+        <form action="mailto:tu_gmail@gmail.com" method="POST" enctype="text/plain">
+            <label for="email">Tu Gmail</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@gmail.com" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+        <div class="cute-decoration"></div>
+    </div>
+    <!-- Live Chat (solo prueba..) -->
+    <script>
+      (function() {
+        var w = window;
+        var ic = w.Intercom;
+        if (typeof ic === "function") {
+          ic('reattach_activator');
+          ic('update', {});
+        } else {
+          var d = document;
+          var i = function() { i.c(arguments); };
+          i.q = [];
+          i.c = function(args) { i.q.push(args); };
+          w.Intercom = i;
+          function l() {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/demo1234'; // Replace with your Intercom app ID
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+          }
+          if (document.readyState === 'complete') {
+            l();
+          } else if (w.attachEvent) {
+            w.attachEvent('onload', l);
+          } else {
+            w.addEventListener('load', l, false);
+          }
+        }
+      })();
+    </script>
+    <!-- Live Chat Widget End -->
+</body>
+</html>
